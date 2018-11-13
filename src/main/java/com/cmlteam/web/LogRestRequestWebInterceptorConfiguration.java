@@ -26,6 +26,11 @@ public class LogRestRequestWebInterceptorConfiguration extends WebMvcConfigurerA
     return new LogRestRequestWebInterceptor();
   }
 
+  @Bean
+  public LogRestRequestFilter logRestRequestFilter(){
+    return new LogRestRequestFilter();
+  }
+
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(logRestRequestWebInterceptor);

@@ -17,7 +17,6 @@ import java.util.Map;
 
 /** We need to use interceptor since in plain web Filter the MultipartRequest is not parsed yet */
 @Slf4j
-@Component
 public class LogRestRequestWebInterceptor extends HandlerInterceptorAdapter {
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
