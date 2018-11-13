@@ -14,21 +14,21 @@ import static com.cmlteam.web.LogRestRequestWebInterceptorProperties.LOG_REQUEST
 @EnableConfigurationProperties(value = LogRestRequestWebInterceptorProperties.class)
 @ConditionalOnProperty(value = LOG_REQUEST_WEB_INTERCEPTOR_PROPS_ENABLED)
 public class LogRestRequestWebInterceptorConfiguration extends WebMvcConfigurerAdapter {
-  private final LogRestRequestWebInterceptor logRestRequestWebInterceptor;
+  /*private final LogRestRequestWebInterceptor logRestRequestWebInterceptor;
 
   @Autowired
   public LogRestRequestWebInterceptorConfiguration(
       LogRestRequestWebInterceptor logRestRequestWebInterceptor) {
     this.logRestRequestWebInterceptor = logRestRequestWebInterceptor;
-  }
+  }*/
 
   @Bean
   public LogRestRequestWebInterceptor logRestRequestWebInterceptor(){
-    return logRestRequestWebInterceptor;
+    return new LogRestRequestWebInterceptor();
   }
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(logRestRequestWebInterceptor);
+    registry.addInterceptor(logRestRequestWebInterceptor());
   }
 }
