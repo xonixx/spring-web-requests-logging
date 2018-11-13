@@ -14,12 +14,9 @@ import static com.cmlteam.web.LogRestRequestWebInterceptorProperties.LOG_REQUEST
 @EnableConfigurationProperties(value = LogRestRequestWebInterceptorProperties.class)
 @ConditionalOnProperty(value = LOG_REQUEST_WEB_INTERCEPTOR_PROPS_ENABLED)
 public class LogRestRequestWebInterceptorConfiguration extends WebMvcConfigurerAdapter {
-  @Autowired private LogRestRequestWebInterceptor logRestRequestWebInterceptor;
 
-  /*public LogRestRequestWebInterceptorConfiguration(
-      LogRestRequestWebInterceptor logRestRequestWebInterceptor) {
-    this.logRestRequestWebInterceptor = logRestRequestWebInterceptor;
-  }*/
+  // In this case autowired in constructor doesn't work
+  @Autowired private LogRestRequestWebInterceptor logRestRequestWebInterceptor;
 
   @Bean
   public LogRestRequestWebInterceptor logRestRequestWebInterceptor(){
