@@ -24,7 +24,7 @@ public class LogRestRequestWebInterceptorConfiguration extends WebMvcConfigurerA
 
   @Bean
   public LogRestRequestWebInterceptor logRestRequestWebInterceptor(){
-    return new LogRestRequestWebInterceptor();
+    return logRestRequestWebInterceptor;
   }
 
   @Override
