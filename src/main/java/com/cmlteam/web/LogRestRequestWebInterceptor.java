@@ -4,7 +4,6 @@ import com.cmlteam.util.Util;
 import com.cmlteam.web.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -17,7 +16,6 @@ import java.util.Map;
 
 /** We need to use interceptor since in plain web Filter the MultipartRequest is not parsed yet */
 @Slf4j
-@Component
 public class LogRestRequestWebInterceptor extends HandlerInterceptorAdapter {
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -48,7 +46,7 @@ public class LogRestRequestWebInterceptor extends HandlerInterceptorAdapter {
 
           MultipartRequest multipartRequest = (MultipartRequest) request;
 
-          sb.append("Files:").append('\n');
+          sb.append('\n').append("Files:").append('\n');
           for (Iterator it = multipartRequest.getFileNames(); it.hasNext(); ) {
             String fileName = (String) it.next();
             MultipartFile file = multipartRequest.getFile(fileName);
