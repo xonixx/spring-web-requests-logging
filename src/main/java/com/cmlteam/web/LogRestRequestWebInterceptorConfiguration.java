@@ -8,12 +8,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import static com.cmlteam.web.LogRestRequestWebInterceptorProperties.LOG_REQUEST_WEB_INTERCEPTOR_PROPS_ENABLED;
+import static com.cmlteam.web.LogRestRequestWebInterceptorConfiguration.LOG_REQUEST_WEB_INTERCEPTOR_PROPS_ENABLED;
 
 @Configuration
-@EnableConfigurationProperties(value = LogRestRequestWebInterceptorProperties.class)
 @ConditionalOnProperty(value = LOG_REQUEST_WEB_INTERCEPTOR_PROPS_ENABLED)
 public class LogRestRequestWebInterceptorConfiguration extends WebMvcConfigurerAdapter {
+
+  static final String LOG_REQUEST_WEB_INTERCEPTOR_PROPS = "logRestRequestWebInterceptor";
+  static final String LOG_REQUEST_WEB_INTERCEPTOR_PROPS_ENABLED = LOG_REQUEST_WEB_INTERCEPTOR_PROPS + ".enabled";
 
   // In this case autowired in constructor doesn't work
   @Autowired private LogRestRequestWebInterceptor logRestRequestWebInterceptor;
