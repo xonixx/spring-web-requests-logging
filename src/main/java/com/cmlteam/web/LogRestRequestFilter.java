@@ -1,6 +1,5 @@
 package com.cmlteam.web;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -10,7 +9,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@Slf4j
 public class LogRestRequestFilter extends GenericFilterBean {
 
   @Override

@@ -2,8 +2,9 @@ package com.cmlteam.web;
 
 import com.cmlteam.util.Util;
 import com.cmlteam.web.util.JsonUtil;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -15,8 +16,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 /** We need to use interceptor since in plain web Filter the MultipartRequest is not parsed yet */
-@Slf4j
 public class LogRestRequestWebInterceptor extends HandlerInterceptorAdapter {
+  private static Logger log = LoggerFactory.getLogger(LogRestRequestWebInterceptor.class);
+
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
       throws Exception {
