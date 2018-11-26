@@ -17,6 +17,7 @@ import java.util.Map;
 
 /** We need to use interceptor since in plain web Filter the MultipartRequest is not parsed yet */
 public class LogRestRequestWebInterceptor extends HandlerInterceptorAdapter {
+  private static final int TRIM_AFTER = 20000;
   private static Logger log = LoggerFactory.getLogger(LogRestRequestWebInterceptor.class);
 
   @Override
@@ -42,7 +43,7 @@ public class LogRestRequestWebInterceptor extends HandlerInterceptorAdapter {
       if (LogRestRequestUtil.isAjaxRequest(request)) {
         LogRestRequestWrapper requestWrapper =
             WebUtils.getNativeRequest(request, LogRestRequestWrapper.class);
-        sb.append('\n').append(JsonUtil.prettyPrintJson(requestWrapper.getBody()));
+        sb.append('\n').append(prepareBodyStr(requestWrapper.getBody()));
       } else if (LogRestRequestUtil.isMultipartRequest(request)) {
         if (request instanceof MultipartRequest) {
 
@@ -64,5 +65,11 @@ public class LogRestRequestWebInterceptor extends HandlerInterceptorAdapter {
       log.info(sb.toString());
     }
     return super.preHandle(request, response, handler);
+  }
+
+  private String prepareBodyStr(String body) {
+    if (body == null) return "";
+    if (body.length() > TRIM_AFTER) return Util.trim(body, TRIM_AFTER);
+    return JsonUtil.prettyPrintJson(body);
   }
 }
