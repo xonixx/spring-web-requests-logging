@@ -14,18 +14,19 @@ import static com.cmlteam.web.LogRestRequestWebInterceptorConfiguration.LOG_REQU
 public class LogRestRequestWebInterceptorConfiguration extends WebMvcConfigurerAdapter {
 
   static final String LOG_REQUEST_WEB_INTERCEPTOR_PROPS = "logRestRequestWebInterceptor";
-  static final String LOG_REQUEST_WEB_INTERCEPTOR_PROPS_ENABLED = LOG_REQUEST_WEB_INTERCEPTOR_PROPS + ".enabled";
+  static final String LOG_REQUEST_WEB_INTERCEPTOR_PROPS_ENABLED =
+      LOG_REQUEST_WEB_INTERCEPTOR_PROPS + ".enabled";
 
   // In this case autowired in constructor doesn't work
   @Autowired private LogRestRequestWebInterceptor logRestRequestWebInterceptor;
 
   @Bean
-  public LogRestRequestWebInterceptor logRestRequestWebInterceptor(){
+  public LogRestRequestWebInterceptor logRestRequestWebInterceptor() {
     return new LogRestRequestWebInterceptor();
   }
 
   @Bean
-  public LogRestRequestFilter logRestRequestFilter(){
+  public LogRestRequestFilter logRestRequestFilter() {
     return new LogRestRequestFilter();
   }
 

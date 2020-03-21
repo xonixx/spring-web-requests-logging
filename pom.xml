@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.github.xonixx</groupId>
             <artifactId>java-utils</artifactId>
-            <version>fe50a56e107809613155d6affaac3a6fb6bce6ac</version>
+            <version>v0.9.1</version>
         </dependency>
 
         <dependency>

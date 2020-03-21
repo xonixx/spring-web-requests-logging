@@ -1,8 +1,6 @@
 package com.cmlteam.web;
 
 import com.cmlteam.util.Util;
-import com.cmlteam.web.util.JsonUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +33,7 @@ public class LogRestRequestWebInterceptor extends HandlerInterceptorAdapter {
         for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
           sb.append(entry.getKey())
               .append('=')
-              .append(StringUtils.join(entry.getValue(), ','))
+              .append(String.join(",", entry.getValue()))
               .append('&');
         }
         sb.setLength(sb.length() - 1);
