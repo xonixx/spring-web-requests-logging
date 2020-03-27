@@ -1,5 +1,7 @@
 # spring-web-requests-logging
 
+[![](https://jitpack.io/v/xonixx/spring-web-requests-logging.svg)](https://jitpack.io/#xonixx/spring-web-requests-logging)
+
 Logs the REST calls bodies and other data useful for production troubleshooting
 
 ## Usage
