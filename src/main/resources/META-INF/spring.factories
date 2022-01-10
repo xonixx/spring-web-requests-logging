@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.cmlteam.web.LogRestRequestWebInterceptorConfiguration
+com.cmlteam.web.LogRestRequestWebInterceptorConfiguration,\
+com.cmlteam.web.AppConfiguration

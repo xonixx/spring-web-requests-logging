@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.AsyncHandlerInterceptor;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /** We need to use interceptor since in plain web Filter the MultipartRequest is not parsed yet */
-public class LogRestRequestWebInterceptor extends HandlerInterceptorAdapter {
+public class LogRestRequestWebInterceptor implements AsyncHandlerInterceptor {
   private static final int TRIM_AFTER = 20000;
   private static Logger log = LoggerFactory.getLogger(LogRestRequestWebInterceptor.class);
 
@@ -62,7 +62,7 @@ public class LogRestRequestWebInterceptor extends HandlerInterceptorAdapter {
       }
       log.info(sb.toString());
     }
-    return super.preHandle(request, response, handler);
+    return true;
   }
 
   private String prepareBodyStr(String body) {
