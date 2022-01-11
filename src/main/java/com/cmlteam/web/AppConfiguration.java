@@ -16,7 +16,7 @@ public class AppConfiguration {
   }
 
   @Bean
-  LogRestRequestWebInterceptor logRestRequestWebInterceptor() {
+  public LogRestRequestWebInterceptor logRestRequestWebInterceptor() {
     return new LogRestRequestWebInterceptor();
   }
 }
