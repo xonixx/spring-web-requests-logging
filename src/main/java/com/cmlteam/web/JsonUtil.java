@@ -68,7 +68,8 @@ public final class JsonUtil {
     try {
       return OBJECT_MAPPER.readValue(json, typeReference);
     } catch (IOException e) {
-      throw new JsonParseException("Unable to parse json to type ref: " + trim(json, MAX_LENGTH), e);
+      throw new JsonParseException(
+          "Unable to parse json to type ref: " + trim(json, MAX_LENGTH), e);
     }
   }
 
