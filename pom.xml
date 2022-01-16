@@ -23,6 +23,13 @@
         </repository>
     </repositories>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.0.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
     <dependencies>
 
         <dependency>
@@ -34,13 +41,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.1.0.RELEASE</version><!-- TODO include via parent pom -->
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.1.0.RELEASE</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -53,7 +58,6 @@
         <dependency><!-- TODO exclude for later Spring Boot -->
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -61,7 +65,7 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.4</version>
+            <version>2.11.0</version>
         </dependency>
 
         <dependency>
