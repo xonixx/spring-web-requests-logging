@@ -10,9 +10,8 @@ import static com.cmlteam.web.LogRestRequestWebInterceptorConfiguration.LOG_REQU
 @ConditionalOnProperty(value = LOG_REQUEST_WEB_INTERCEPTOR_PROPS_ENABLED)
 public class LogRestRequestWebInterceptorConfiguration {
 
-  static final String LOG_REQUEST_WEB_INTERCEPTOR_PROPS = "logRestRequestWebInterceptor";
   static final String LOG_REQUEST_WEB_INTERCEPTOR_PROPS_ENABLED =
-      LOG_REQUEST_WEB_INTERCEPTOR_PROPS + ".enabled";
+      "logRestRequestWebInterceptor.enabled";
 
   @Bean
   public LogRestRequestWebInterceptor logRestRequestWebInterceptor() {
