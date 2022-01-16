@@ -3,12 +3,13 @@ package com.cmlteam.web;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 
 import static com.cmlteam.web.JsonUtil.json;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,17 +22,24 @@ public class MvcTests extends ApiTestsBase {
           .add("bool", true)
           .add("val", (Object) null)
           .toString();
+  private static final String MEMORY_APPENDER = "memoryAppender";
 
-  private static MemoryAppender memoryAppender;
+  private MemoryAppender memoryAppender;
 
-  @BeforeAll
-  public static void setup() {
+  @BeforeEach
+  public void setup() {
     Logger logger = (Logger) LoggerFactory.getLogger("com.cmlteam.web");
-    memoryAppender = new MemoryAppender();
-    memoryAppender.setContext((LoggerContext) LoggerFactory.getILoggerFactory());
-    logger.setLevel(Level.DEBUG);
-    logger.addAppender(memoryAppender);
-    memoryAppender.start();
+    if (logger.getAppender(MEMORY_APPENDER) == null) {
+      memoryAppender = new MemoryAppender();
+      memoryAppender.setName(MEMORY_APPENDER);
+      memoryAppender.setContext((LoggerContext) LoggerFactory.getILoggerFactory());
+      logger.setLevel(Level.DEBUG);
+      logger.addAppender(memoryAppender);
+      memoryAppender.start();
+    }
+
+    memoryAppender = (MemoryAppender) logger.getAppender(MEMORY_APPENDER);
+    memoryAppender.reset();
   }
 
   @Test
@@ -45,6 +53,6 @@ public class MvcTests extends ApiTestsBase {
         // THEN
         .andExpect(status().isOk());
 
-    System.out.println(memoryAppender.getSize());
+    assertEquals(1, memoryAppender.getSize());
   }
 }
