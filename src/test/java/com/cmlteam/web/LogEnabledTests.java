@@ -5,10 +5,11 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+// TODO add more tests for all HTTP methods
+// TODO add negative test for GET (should not log)
 @ActiveProfiles("test-enabled")
 public class LogEnabledTests extends ApiTestsBase {
 
