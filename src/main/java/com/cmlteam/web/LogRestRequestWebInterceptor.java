@@ -16,7 +16,7 @@ import java.util.Map;
 /** We need to use interceptor since in plain web Filter the MultipartRequest is not parsed yet */
 public class LogRestRequestWebInterceptor extends HandlerInterceptorAdapter {
   private static final int TRIM_AFTER = 20000;
-  private static Logger log = LoggerFactory.getLogger(LogRestRequestWebInterceptor.class);
+  private static final Logger log = LoggerFactory.getLogger(LogRestRequestWebInterceptor.class);
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -41,19 +41,23 @@ public class LogRestRequestWebInterceptor extends HandlerInterceptorAdapter {
       if (LogRestRequestUtil.isAjaxRequest(request)) {
         LogRestRequestWrapper requestWrapper =
             WebUtils.getNativeRequest(request, LogRestRequestWrapper.class);
-        sb.append('\n').append(prepareBodyStr(requestWrapper.getBody()));
+        if (requestWrapper != null) {
+          sb.append('\n').append(prepareBodyStr(requestWrapper.getBody()));
+        }
       } else if (LogRestRequestUtil.isMultipartRequest(request)) {
         if (request instanceof MultipartRequest) {
 
           MultipartRequest multipartRequest = (MultipartRequest) request;
 
           sb.append('\n').append("Files:").append('\n');
-          for (Iterator it = multipartRequest.getFileNames(); it.hasNext(); ) {
-            String fileName = (String) it.next();
+          for (Iterator<String> it = multipartRequest.getFileNames(); it.hasNext(); ) {
+            String fileName = it.next();
             MultipartFile file = multipartRequest.getFile(fileName);
 
-            sb.append("fileName: ").append(file.getOriginalFilename()).append('\n');
-            sb.append("fileSize: ").append(Util.renderFileSize(file.getSize())).append('\n');
+            if (file != null) {
+              sb.append("fileName: ").append(file.getOriginalFilename()).append('\n');
+              sb.append("fileSize: ").append(Util.renderFileSize(file.getSize())).append('\n');
+            }
           }
           sb.setLength(sb.length() - 1);
         }
