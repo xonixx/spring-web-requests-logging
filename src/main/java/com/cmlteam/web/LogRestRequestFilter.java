@@ -16,7 +16,7 @@ public class LogRestRequestFilter extends GenericFilterBean {
       throws IOException, ServletException {
 
     // For _logged_ AJAX calls must wrap request to capture the body while letting the controllers
-    // to consume the request's input stream
+    // consume the request's input stream
     if (LogRestRequestUtil.shouldLogRequest(request) && LogRestRequestUtil.isAjaxRequest(request)) {
       request = new LogRestRequestWrapper((HttpServletRequest) request);
     }
