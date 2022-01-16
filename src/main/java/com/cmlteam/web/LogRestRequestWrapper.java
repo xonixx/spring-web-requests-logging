@@ -47,10 +47,10 @@ class LogRestRequestWrapper extends HttpServletRequestWrapper {
 
   @Override
   public BufferedReader getReader() throws IOException {
-    return new BufferedReader(new InputStreamReader(this.getInputStream()));
+    return new BufferedReader(new InputStreamReader(getInputStream()));
   }
 
   String getBody() {
-    return this.body;
+    return body;
   }
 }
