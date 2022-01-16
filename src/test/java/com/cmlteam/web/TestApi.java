@@ -10,13 +10,19 @@ public class TestApi {
   @ResponseBody
   @PostMapping("postEndpoint")
   public ResponseEntity<?> postEndpoint(@RequestBody TestRequestDto request) {
-    return ApiTestsBase.TEST_ID == request.getId()
-        ? ResponseEntity.ok().build()
-        : ResponseEntity.badRequest().build();
+    return (ApiTestsBase.TEST_ID == request.getId()
+            ? ResponseEntity.ok()
+            : ResponseEntity.badRequest())
+        .build();
   }
 
   @PostMapping(path = "/postUploadEndpoint")
   public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
-    return file.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok().build();
+    return (file.isEmpty()
+            ? ResponseEntity.notFound()
+            : ApiTestsBase.TEST_FILE_NAME.equals(file.getOriginalFilename())
+                ? ResponseEntity.ok()
+                : ResponseEntity.badRequest())
+        .build();
   }
 }
