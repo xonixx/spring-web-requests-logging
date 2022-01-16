@@ -10,7 +10,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MvcTests extends ApiTestsBase {
 
   private static final String JSON_REQUEST =
-      json().add("id", 123).add("payload", "Some test body...").toString();
+      json()
+          .add("id", 123)
+          .add("payload", "Some test body...")
+          .add("bool", true)
+          .add("val", (Object) null)
+          .toString();
 
   @Test
   public void testPostLogs() throws Exception {

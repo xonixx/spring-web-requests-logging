@@ -10,6 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TestRequestDto {
-    private long id;
-    private String payload;
+  private long id;
+  private String payload;
+  private boolean bool;
+  private String val;
 }
