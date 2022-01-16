@@ -22,13 +22,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class ApiTestsBase {
   @Autowired MockMvc mockMvc;
+  static final int TEST_ID = 123;
   static final String JSON_REQUEST =
-          json()
-                  .add("id", 123)
-                  .add("payload", "Some test body...")
-                  .add("bool", true)
-                  .add("val", (Object) null)
-                  .toString();
+      json()
+          .add("id", TEST_ID)
+          .add("payload", "Some test body...")
+          .add("bool", true)
+          .add("val", (Object) null)
+          .toString();
 
   private static final String MEMORY_APPENDER = "memoryAppender";
 
