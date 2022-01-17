@@ -12,6 +12,23 @@
     echo >&2 "$@"
     exit 1
   }
+
+  # Let's make sure pom.xml has correct version
+
+  awk -v NEXT_VERSION="$NEXT_VERSION" '
+  /<packaging>jar<\/packaging>/  { L=NR }
+  /<version>/ && (L+1)==NR {
+    versionStart=index($0,"<version>")
+    versionEnd=index($0,"</version>")
+    version=substr($0,versionStart+9,versionEnd-versionStart-9)
+    # print "pom.xml version=" version
+    if (version != NEXT_VERSION) {
+      print "Wrong version in pom.xml (" version " != " NEXT_VERSION ")!"
+      exit 1
+    }
+  }
+  ' pom.xml
+
   milestoneId=$(gh api -X GET "repos/$REPO/milestones" --jq '.[] | select(.title=="'$NEXT_VERSION'").number')
   if [[ -z $milestoneId ]]
   then
@@ -40,7 +57,7 @@
 
   echo "Notes: $notesStr"
 
-  echo \
+  # echo \
   gh release create "$releaseTag" \
     --title "$releaseTag" \
     --notes "$notesStr" \
