@@ -1,0 +1,48 @@
+
+@define NEXT_VERSION='0.9.2'
+@define REPO='xonixx/spring-web-requests-logging'
+
+@goal gh_release
+@doc 'publish Github release (draft)'
+  releaseTag="v$NEXT_VERSION"
+  echo
+  echo "Will publish a draft release for $releaseTag ..."
+  echo
+  fail () {
+    echo >&2 "$@"
+    exit 1
+  }
+  milestoneId=$(gh api -X GET "repos/$REPO/milestones" --jq '.[] | select(.title=="'$NEXT_VERSION'").number')
+  if [[ -z $milestoneId ]]
+  then
+    fail "Unable to determine milestoneId by release version"
+  fi
+  echo "Milestone ID : $milestoneId"
+
+#  notesStr="Issues in release: https://github.com/$REPO/milestone/$milestoneId?closed=1"
+# Let's take for notes the latest record from change log (in build.gradle)
+# Let's make sure the version there is correct
+  notesStr=$(awk '
+  /changeNotes """/ { Started=1; next }
+  Started
+  /<\/p>/ { exit 0 }
+  ' build.gradle)
+
+  echo "Notes: $notesStr"
+
+  awk -v notesStr="$notesStr" -v NEXT_VERSION="$NEXT_VERSION" '
+  BEGIN {
+    if (index(notesStr,NEXT_VERSION)>0) exit 0
+    print "Wrong version in notes, should be " NEXT_VERSION
+    print "Make sure you did not forget to add latest change note!"
+    exit 1
+  }
+  '
+
+  gh release create "$releaseTag" \
+    --title "$releaseTag" \
+    --notes "$notesStr" \
+    --draft
+
+  echo "Please don't forget to open the release draft, edit it as needed and PUBLISH!"
+
