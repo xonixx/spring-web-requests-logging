@@ -13,7 +13,7 @@ In pom.xml `<dependencies>`:
 <dependency>
     <groupId>com.github.xonixx</groupId>
     <artifactId>spring-web-requests-logging</artifactId>
-    <version>v0.9.1</version>
+    <version>v0.9.2</version>
 </dependency>
 ``` 
 

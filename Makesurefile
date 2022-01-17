@@ -18,9 +18,9 @@
   awk -v NEXT_VERSION="$NEXT_VERSION" '
   /<packaging>jar<\/packaging>/  { L=NR }
   /<version>/ && (L+1)==NR {
-    versionStart=index($0,"<version>")
+    versionStart=index($0,"<version>")+9
     versionEnd=index($0,"</version>")
-    version=substr($0,versionStart+9,versionEnd-versionStart-9)
+    version=substr($0,versionStart,versionEnd-versionStart)
     # print "pom.xml version=" version
     if (version != NEXT_VERSION) {
       print "Wrong version in pom.xml (" version " != " NEXT_VERSION ")!"
@@ -28,6 +28,15 @@
     }
   }
   ' pom.xml
+
+  # Let's make sure README.md has correct version
+  awk -v NEXT_VERSION="$NEXT_VERSION" '
+  /<version>/ { if (index($0, NEXT_VERSION)>0) { Found=1 } }
+  END { if (!Found) {
+      print "Wrong version in README.md!"
+      exit 1
+  } }
+  ' README.md
 
   milestoneId=$(gh api -X GET "repos/$REPO/milestones" --jq '.[] | select(.title=="'$NEXT_VERSION'").number')
   if [[ -z $milestoneId ]]
@@ -57,7 +66,7 @@
 
   echo "Notes: $notesStr"
 
-  # echo \
+  echo \
   gh release create "$releaseTag" \
     --title "$releaseTag" \
     --notes "$notesStr" \
