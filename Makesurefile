@@ -1,3 +1,4 @@
+# vim: syntax=bash
 
 @define NEXT_VERSION='0.9.2'
 @define REPO='xonixx/spring-web-requests-logging'
@@ -66,7 +67,7 @@
 
   echo "Notes: $notesStr"
 
-  echo \
+#  echo \
   gh release create "$releaseTag" \
     --title "$releaseTag" \
     --notes "$notesStr" \
