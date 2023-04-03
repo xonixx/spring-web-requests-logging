@@ -1,7 +1,5 @@
 package com.cmlteam.web;
 
-import org.apache.commons.io.IOUtils;
-
 import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +16,7 @@ class LogRestRequestWrapper extends HttpServletRequestWrapper {
 
   LogRestRequestWrapper(HttpServletRequest request) throws IOException {
     super(request);
-    body = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
+    body = new String(request.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
   }
 
   @Override
