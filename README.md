@@ -13,7 +13,7 @@ In pom.xml `<dependencies>`:
 <dependency>
     <groupId>com.github.xonixx</groupId>
     <artifactId>spring-web-requests-logging</artifactId>
-    <version>v0.9.2</version>
+    <version>v0.9.3</version>
 </dependency>
 ``` 
 
@@ -26,3 +26,9 @@ In pom.xml `<repositories>`
 </repository>
 ``` 
 
+## Compatibility
+
+| Spring Boot | Java | spring-web-requests-logging |
+|-------------|------|-----------------------------|
+| 2.x         | 8    | v0.9.2                      |
+| 3.x         | 17   | v0.9.3                      |
