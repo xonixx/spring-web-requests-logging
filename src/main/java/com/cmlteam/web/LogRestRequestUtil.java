@@ -1,7 +1,7 @@
 package com.cmlteam.web;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 class LogRestRequestUtil {
   private static final String[] LOGGED_METHODS = new String[] {"POST", "PUT", "PATCH", "DELETE"};

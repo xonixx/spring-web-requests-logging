@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 @Slf4j
-public final class JsonUtil {
+final class JsonUtil {
 
   private static final int MAX_LENGTH = 100;
 
